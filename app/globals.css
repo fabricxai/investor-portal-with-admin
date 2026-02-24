@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #080E18;
+  --color-navy-light: #0F1A2E;
+  --color-navy-lighter: #1A2744;
+  --color-aqua: #57ACAF;
+  --color-aqua-light: #7BC4C7;
+  --color-aqua-dark: #3D8A8D;
+  --color-yellow: #EAB308;
+  --color-yellow-light: #FACC15;
+  --color-yellow-dark: #CA8A04;
+  --color-background: #ffffff;
+  --color-foreground: #080E18;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
+  --color-card: #F9FAFB;
+  --color-danger: #EF4444;
+  --color-success: #22C55E;
+  --font-heading: "Sora", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* ── Admin Dark Theme ─────────────────────────────────────────────────────── */
+.admin-dark {
+  --color-background: #07111E;
+  --color-foreground: #E8F0F8;
+  --color-muted: #6A8899;
+  --color-border: #152238;
+  --color-card: #0C1929;
+  --color-danger: #EF4444;
+  --color-success: #10B981;
+  --color-dim: #3A5060;
+  --color-panel: #0C1929;
+  --admin-sidebar: #060E1A;
+  --admin-surface: #0F1D2F;
+  --admin-hover: #132640;
+  --admin-accent-gradient: linear-gradient(135deg, #57ACAF 0%, #EAB308 100%);
+  --admin-glow-aqua: 0 0 20px rgba(87, 172, 175, 0.15);
+  --admin-glow-gold: 0 0 20px rgba(234, 179, 8, 0.1);
+}
+
+/* Force form elements to use white text in admin dark */
+.admin-dark input,
+.admin-dark textarea,
+.admin-dark select,
+.admin-dark button {
+  color: #E8F0F8;
+}
+.admin-dark input::placeholder,
+.admin-dark textarea::placeholder {
+  color: #3A5060;
+}
+.admin-dark select option {
+  background: #0C1929;
+  color: #E8F0F8;
+}
+
+.admin-dark ::-webkit-scrollbar-track {
+  background: #07111E;
+}
+.admin-dark ::-webkit-scrollbar-thumb {
+  background: #1C3042;
+  border-radius: 3px;
+}
+.admin-dark ::-webkit-scrollbar-thumb:hover {
+  background: #2A4055;
+}
+
+/* Admin card hover glow */
+.admin-dark .admin-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.admin-dark .admin-card:hover {
+  border-color: #1E3A52;
+  box-shadow: var(--admin-glow-aqua);
+}
+
+/* Admin stat card with accent glow */
+.admin-dark .admin-stat-card {
+  position: relative;
+  overflow: hidden;
+}
+.admin-dark .admin-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--admin-accent-gradient);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.admin-dark .admin-stat-card:hover::before {
+  opacity: 1;
+}
+
+/* Admin table styling */
+.admin-dark .admin-table th {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #3A5060;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+.admin-dark .admin-table tr {
+  transition: background-color 0.15s ease;
+}
+.admin-dark .admin-table tbody tr:hover {
+  background-color: rgba(87, 172, 175, 0.04);
+}
+
+/* Admin gradient accent bar */
+.admin-gradient-bar {
+  height: 2px;
+  background: linear-gradient(90deg, #57ACAF 0%, #EAB308 50%, #57ACAF 100%);
+  background-size: 200% 100%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Admin input focus glow */
+.admin-dark .admin-input:focus {
+  border-color: #57ACAF;
+  box-shadow: 0 0 0 3px rgba(87, 172, 175, 0.1), 0 0 12px rgba(87, 172, 175, 0.08);
+  outline: none;
+}
+
+/* Admin page header */
+.admin-page-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #3A5060;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  margin-bottom: 6px;
+}
+.admin-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: #E8F0F8;
+  letter-spacing: -0.3px;
+}
+
+/* Admin section label */
+.admin-section-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #3A5060;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+/* Animations */
+@keyframes hunter-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes admin-glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(87, 172, 175, 0.08); }
+  50% { box-shadow: 0 0 16px rgba(87, 172, 175, 0.15); }
+}
+
+/* Admin sidebar active indicator */
+.admin-nav-active {
+  position: relative;
+}
+.admin-nav-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(180deg, #57ACAF, #3D8A8D);
+}
