@@ -1239,17 +1239,42 @@ export default function PortalClient({
                     {doc.type} · {doc.size}
                   </div>
                 </div>
-                <div
-                  style={{
-                    fontSize: 11,
-                    fontFamily: "'Trebuchet MS', sans-serif",
-                    color: tier >= 2 && doc.canDownload ? '#10B981' : '#57ACAF',
-                    cursor: 'pointer',
-                    fontWeight: 600,
-                  }}
-                >
-                  {tier >= 2 && doc.file_url ? 'Download →' : 'Request Access →'}
-                </div>
+                {tier >= 2 && doc.file_url ? (
+                  <a
+                    href={doc.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: 11,
+                      fontFamily: "'Trebuchet MS', sans-serif",
+                      color: '#10B981',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    Download →
+                  </a>
+                ) : (
+                  <div
+                    onClick={() => {
+                      if (tier === 0) {
+                        setShowAccessForm(true)
+                      } else {
+                        setActiveTab('invest')
+                      }
+                    }}
+                    style={{
+                      fontSize: 11,
+                      fontFamily: "'Trebuchet MS', sans-serif",
+                      color: '#57ACAF',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Request Access →
+                  </div>
+                )}
               </div>
             ))}
             <div
