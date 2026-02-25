@@ -174,7 +174,7 @@ export default function PortalClient({
 
     return (
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        <div className="portal-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
           <input
             type="text"
             required
@@ -207,7 +207,7 @@ export default function PortalClient({
           onChange={e => setFormData(d => ({ ...d, firm_name: e.target.value }))}
           style={inputStyle}
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        <div className="portal-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
           <select
             value={formData.investor_type}
             onChange={e => setFormData(d => ({ ...d, investor_type: e.target.value }))}
@@ -368,12 +368,12 @@ export default function PortalClient({
   return (
     <div style={styles.app}>
       {/* Header */}
-      <header style={styles.header}>
+      <header className="portal-header" style={styles.header}>
         <a href="https://fabricxai.com" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center' }}>
           <img src="https://devppcpvuwneduuibygh.supabase.co/storage/v1/object/public/investor-portal/logo/fabricxai-logo-dark.png" alt="fabricXai" style={{ height: 24 }} />
         </a>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={styles.badge}>INVESTOR PORTAL</div>
+        <div className="portal-header-right" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div className="portal-badge" style={styles.badge}>INVESTOR PORTAL</div>
           <div
             style={{
               width: 8,
@@ -405,14 +405,15 @@ export default function PortalClient({
       </header>
 
       {/* Stats strip */}
-      <div style={styles.statsStrip}>
+      <div className="portal-stats-strip" style={styles.statsStrip}>
         {stats.map((st, i) => (
-          <div key={i} style={styles.statItem}>
+          <div key={i} className="portal-stat-item" style={styles.statItem}>
             <div style={{ ...styles.statValue, color: st.color }}>{st.value}</div>
             <div style={styles.statLabel}>{st.label}</div>
           </div>
         ))}
         <div
+          className="portal-stat-item"
           style={{
             ...styles.statItem,
             marginLeft: 'auto',
@@ -434,46 +435,51 @@ export default function PortalClient({
       </div>
 
       {/* Main */}
-      <div style={{ ...styles.main, flex: 1 }}>
+      <div className="portal-main" style={{ ...styles.main, flex: 1 }}>
         {/* Sidebar */}
-        <div style={styles.sidebar}>
-          <div style={styles.sideLabel}>Navigation</div>
-          {navItems.map(nav => (
-            <div
-              key={nav.id}
-              style={navItemStyle(activeTab === nav.id)}
-              onClick={() => setActiveTab(nav.id)}
-            >
-              <div style={navDotStyle(nav.dot)} />
-              {nav.label}
-            </div>
-          ))}
+        <div className="portal-sidebar" style={styles.sidebar}>
+          <div className="sidebar-nav">
+            <div className="sidebar-nav-label" style={styles.sideLabel}>Navigation</div>
+            {navItems.map(nav => (
+              <div
+                key={nav.id}
+                className="sidebar-nav-item"
+                style={navItemStyle(activeTab === nav.id)}
+                onClick={() => setActiveTab(nav.id)}
+              >
+                <div style={navDotStyle(nav.dot)} />
+                <span style={{ whiteSpace: 'nowrap' }}>{nav.label}</span>
+              </div>
+            ))}
+          </div>
 
-          <div style={{ ...styles.sideLabel, marginTop: 28 }}>Round Details</div>
-          {[
-            ['Instrument', 'SAFE'],
-            ['Ask', '$150K–$250K'],
-            ['Cap', '$3M'],
-            ['Discount', '20%'],
-            ['Stage', 'Angel / Pre-Seed'],
-          ].map(([k, v]) => (
-            <div
-              key={k}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                padding: '6px 0',
-                borderBottom: '1px solid #0F1E2A',
-                fontSize: 11,
-                fontFamily: "'Trebuchet MS', sans-serif",
-              }}
-            >
-              <span style={{ color: '#3A5060' }}>{k}</span>
-              <span style={{ color: '#A8BFC8', fontWeight: 600 }}>{v}</span>
-            </div>
-          ))}
+          <div className="sidebar-details">
+            <div style={{ ...styles.sideLabel, marginTop: 28 }}>Round Details</div>
+            {[
+              ['Instrument', 'SAFE'],
+              ['Ask', '$150K–$250K'],
+              ['Cap', '$3M'],
+              ['Discount', '20%'],
+              ['Stage', 'Angel / Pre-Seed'],
+            ].map(([k, v]) => (
+              <div
+                key={k}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '6px 0',
+                  borderBottom: '1px solid #0F1E2A',
+                  fontSize: 11,
+                  fontFamily: "'Trebuchet MS', sans-serif",
+                }}
+              >
+                <span style={{ color: '#3A5060' }}>{k}</span>
+                <span style={{ color: '#A8BFC8', fontWeight: 600 }}>{v}</span>
+              </div>
+            ))}
+          </div>
 
-          <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column' as const, gap: 8 }}>
+          <div className="sidebar-cta" style={{ marginTop: 20, display: 'flex', flexDirection: 'column' as const, gap: 8 }}>
             {tier === 0 ? (
               <button
                 onClick={() => setShowAccessForm(true)}
@@ -540,6 +546,7 @@ export default function PortalClient({
           </div>
 
           {/* Connect on LinkedIn */}
+          <div className="sidebar-linkedin">
           <div style={{ ...styles.sideLabel, marginTop: 24 }}>Connect on LinkedIn</div>
           {[
             { name: 'Arifur Rahman', role: 'CEO', initials: 'AR', color: '#EAB308', url: 'https://www.linkedin.com/in/arifur-rahman-fabricxai/' },
@@ -600,11 +607,12 @@ export default function PortalClient({
               </svg>
             </a>
           ))}
+          </div>
         </div>
 
         {/* Content area */}
         {activeTab === 'ask' && (
-          <div style={styles.askArea}>
+          <div className="portal-content" style={styles.askArea}>
             <div style={{ marginBottom: 20 }}>
               <div style={styles.sectionLabel}>AI-Powered Investor Q&A</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Ask anything about fabricXai</div>
@@ -733,14 +741,14 @@ export default function PortalClient({
 
         {/* ─── TEAM TAB ──────────────────────────────────────────────── */}
         {activeTab === 'team' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="portal-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={styles.sectionLabel}>Leadership</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>The Team Behind fabricXai</div>
             </div>
 
             {/* Founders */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
+            <div className="portal-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
               {/* Kamrul */}
               <div style={teamCardStyle}>
                 <div style={teamAvatarStyle('#57ACAF')}>KH</div>
@@ -815,7 +823,7 @@ export default function PortalClient({
               <div style={{ color: '#A8BFC8', fontWeight: 700, marginBottom: 8, fontSize: 14 }}>
                 Why This Team Wins
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div className="portal-why-team-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                 <div>
                   <span style={{ color: '#57ACAF', fontWeight: 600 }}>Technical depth</span> — Both
                   founders are BUET engineers with hands-on AI/ML and systems experience
@@ -839,7 +847,7 @@ export default function PortalClient({
 
         {/* ─── TRACTION TIMELINE TAB ─────────────────────────────────── */}
         {activeTab === 'traction' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="portal-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={styles.sectionLabel}>Progress</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Traction & Milestones</div>
@@ -979,7 +987,7 @@ export default function PortalClient({
             </div>
 
             {/* Key metrics row */}
-            <div style={{
+            <div className="portal-grid-4" style={{
               marginTop: 8,
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
@@ -1018,7 +1026,7 @@ export default function PortalClient({
 
         {/* ─── USE OF FUNDS TAB ──────────────────────────────────────── */}
         {activeTab === 'funds' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="portal-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={styles.sectionLabel}>Capital Allocation</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Use of Funds — $150K–$250K Angel Round</div>
@@ -1108,7 +1116,7 @@ export default function PortalClient({
               <div style={{ color: '#A8BFC8', fontWeight: 700, marginBottom: 12, fontSize: 14 }}>
                 Key Assumptions
               </div>
-              <div style={{
+              <div className="portal-key-assumptions" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: 12,
@@ -1211,7 +1219,7 @@ export default function PortalClient({
         )}
 
         {activeTab === 'docs' && (
-          <div style={styles.docsArea}>
+          <div className="portal-content" style={styles.docsArea}>
             <div style={{ marginBottom: 20 }}>
               <div style={styles.sectionLabel}>Data Room</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Investor Documents</div>
@@ -1268,7 +1276,7 @@ export default function PortalClient({
 
         {/* ─── PRODUCT DEMO TAB ──────────────────────────────────── */}
         {activeTab === 'demo' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="portal-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={styles.sectionLabel}>Platform Preview</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>The fabricXai Agent Platform</div>
@@ -1294,7 +1302,7 @@ export default function PortalClient({
                 order intake to final shipment.
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+              <div className="portal-grid-3" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
                 {[
                   {
                     name: 'LeadX', desc: 'Production scheduling & line balancing', status: 'LIVE', color: '#10B981', slug: 'leadx',
@@ -1452,7 +1460,7 @@ export default function PortalClient({
               <div style={{ color: '#A8BFC8', fontWeight: 700, marginBottom: 16, fontSize: 14 }}>
                 Why fabricXai is Different
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div className="portal-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 {[
                   { title: 'Skills-Based Architecture', desc: 'Agents adapt to each factory\'s unique workflows — not generic SaaS templates.', color: '#57ACAF' },
                   { title: 'Multi-Agent Coordination', desc: '22 agents work together, sharing context for end-to-end production optimization.', color: '#EAB308' },
@@ -1483,7 +1491,7 @@ export default function PortalClient({
         )}
 
         {activeTab === 'deck' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="portal-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <div>
                 <div style={styles.sectionLabel}>Presentation Preview</div>
@@ -1546,8 +1554,8 @@ export default function PortalClient({
               </div>
 
               {/* Slide content */}
-              <div style={{ padding: '40px 40px 32px' }}>
-                <div style={{
+              <div className="portal-slide-pad" style={{ padding: '40px 40px 32px' }}>
+                <div className="portal-slide-title" style={{
                   fontSize: 28, fontWeight: 700, marginBottom: 8,
                   color: '#FFFFFF', lineHeight: 1.2,
                 }}>
@@ -1725,7 +1733,7 @@ export default function PortalClient({
 
         {/* ─── FAQ TAB ───────────────────────────────────────────── */}
         {activeTab === 'faq' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="portal-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={styles.sectionLabel}>Frequently Asked Questions</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Investor FAQ</div>
@@ -1929,7 +1937,7 @@ export default function PortalClient({
 
         {/* ─── INVEST TAB ─────────────────────────────────────────── */}
         {activeTab === 'invest' && tier >= 1 && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="portal-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={styles.sectionLabel}>Investment Opportunity</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Invest in fabricXai</div>
@@ -1987,7 +1995,7 @@ export default function PortalClient({
                   <div style={{ color: '#A8BFC8', fontWeight: 700, marginBottom: 16, fontSize: 14 }}>
                     Angel Round — SAFE Terms
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                  <div className="portal-invest-terms" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
                     {[
                       { label: 'Instrument', value: 'SAFE', color: '#FFFFFF' },
                       { label: 'Valuation Cap', value: '$3M', color: '#57ACAF' },
@@ -2098,7 +2106,7 @@ export default function PortalClient({
                     }}
                     style={{ display: 'flex', flexDirection: 'column' as const, gap: 12 }}
                   >
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                    <div className="portal-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                       <div>
                         <label style={{
                           display: 'block', fontSize: 10, fontFamily: "'Trebuchet MS', sans-serif",
@@ -2193,14 +2201,14 @@ export default function PortalClient({
 
         {/* ─── SCHEDULE A CALL TAB ────────────────────────────────── */}
         {activeTab === 'schedule' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="portal-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={styles.sectionLabel}>Get in Touch</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Schedule a Call</div>
             </div>
 
             {/* Founders with contact */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
+            <div className="portal-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
               {[
                 {
                   name: 'Arifur Rahman',
@@ -2318,7 +2326,7 @@ export default function PortalClient({
               <div style={{ color: '#A8BFC8', fontWeight: 700, marginBottom: 16, fontSize: 14 }}>
                 What to Expect on the Call
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div className="portal-call-expect" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 {[
                   { time: '5 min', topic: 'Introductions & Your Interests', color: '#57ACAF' },
                   { time: '10 min', topic: 'Product Demo & Agent Platform', color: '#EAB308' },
@@ -2440,7 +2448,7 @@ export default function PortalClient({
       )}
 
       {/* Footer */}
-      <div style={styles.disclaimer}>
+      <div className="portal-footer" style={styles.disclaimer}>
         This portal contains confidential information for prospective investors only. Not for distribution.
         fabricXai · SocioFi · Dhaka, Bangladesh · arifur@fabricxai.com
       </div>
@@ -2456,6 +2464,96 @@ export default function PortalClient({
         ::-webkit-scrollbar-thumb { background: #1C3042; border-radius: 4px; }
         input::placeholder, textarea::placeholder { color: #2A3F52; }
         select { appearance: auto; }
+
+        /* ─── Responsive ─────────────────────────────────── */
+
+        /* Mobile ≤768px */
+        @media (max-width: 768px) {
+          /* Header */
+          .portal-header { padding: 0 12px !important; height: auto !important; min-height: 52px !important; flex-wrap: wrap !important; gap: 8px !important; padding-top: 8px !important; padding-bottom: 8px !important; }
+          .portal-header-right { flex-wrap: wrap !important; gap: 6px !important; }
+          .portal-header-right .portal-badge { display: none !important; }
+
+          /* Stats strip */
+          .portal-stats-strip { flex-wrap: wrap !important; }
+          .portal-stat-item { min-width: 0 !important; flex: 1 1 calc(33.33% - 1px) !important; padding: 10px 12px !important; border-bottom: 1px solid #1C3042 !important; }
+          .portal-stat-item:last-child { border-right: none !important; }
+
+          /* Main layout → vertical stack */
+          .portal-main { flex-direction: column !important; padding: 0 !important; gap: 0 !important; }
+
+          /* Sidebar → horizontal nav strip */
+          .portal-sidebar {
+            width: 100% !important;
+            padding: 0 !important;
+            border-bottom: 1px solid #1C3042;
+            position: sticky !important;
+            top: 52px !important;
+            z-index: 90 !important;
+            background: #07111E !important;
+          }
+          .portal-sidebar .sidebar-nav {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            gap: 4px !important;
+            padding: 8px 12px !important;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .portal-sidebar .sidebar-nav::-webkit-scrollbar { display: none; }
+          .portal-sidebar .sidebar-nav-label { display: none !important; }
+          .portal-sidebar .sidebar-nav-item {
+            flex-shrink: 0 !important;
+            padding: 6px 12px !important;
+            margin-bottom: 0 !important;
+            border-radius: 20px !important;
+            font-size: 12px !important;
+            gap: 6px !important;
+          }
+          .portal-sidebar .sidebar-details { display: none !important; }
+          .portal-sidebar .sidebar-linkedin { display: none !important; }
+          .portal-sidebar .sidebar-cta { display: none !important; }
+
+          /* Content */
+          .portal-content { padding: 16px 12px 24px !important; }
+
+          /* Grids collapse */
+          .portal-grid-2 { grid-template-columns: 1fr !important; }
+          .portal-grid-3 { grid-template-columns: 1fr 1fr !important; }
+          .portal-grid-4 { grid-template-columns: 1fr 1fr !important; }
+          .portal-form-grid { grid-template-columns: 1fr !important; }
+          .portal-why-team-grid { grid-template-columns: 1fr !important; }
+          .portal-key-assumptions { grid-template-columns: 1fr !important; }
+          .portal-call-expect { grid-template-columns: 1fr !important; }
+          .portal-invest-terms { grid-template-columns: 1fr 1fr !important; }
+
+          /* Deck slides */
+          .portal-slide-pad { padding: 20px 16px 16px !important; }
+          .portal-slide-title { font-size: 20px !important; }
+
+          /* Footer */
+          .portal-footer { padding: 12px !important; }
+        }
+
+        /* Small phones ≤480px */
+        @media (max-width: 480px) {
+          .portal-stat-item { flex: 1 1 50% !important; }
+          .portal-grid-3 { grid-template-columns: 1fr !important; }
+          .portal-grid-4 { grid-template-columns: 1fr !important; }
+          .portal-invest-terms { grid-template-columns: 1fr !important; }
+          .portal-header-right > span { display: none !important; }
+          .portal-sidebar .sidebar-nav-item { font-size: 11px !important; padding: 5px 10px !important; }
+        }
+
+        /* Tablet 769–1024px */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .portal-sidebar { width: 200px !important; }
+          .portal-main { padding: 0 16px !important; }
+          .portal-stat-item { padding: 12px 16px !important; min-width: 100px !important; }
+          .portal-grid-3 { grid-template-columns: 1fr 1fr !important; }
+        }
       `}</style>
     </div>
   )

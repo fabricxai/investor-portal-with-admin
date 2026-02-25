@@ -282,7 +282,7 @@ export default function EmailGate({ onGatePass }: EmailGateProps) {
 
   return (
     <div style={styles.container}>
-      <div style={styles.card}>
+      <div className="gate-card" style={styles.card}>
         {/* Logo */}
         <a href="https://fabricxai.com" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}>
           <img src="https://devppcpvuwneduuibygh.supabase.co/storage/v1/object/public/investor-portal/logo/fabricxai-logo-dark.png" alt="fabricXai" style={{ height: 28 }} />
@@ -429,6 +429,11 @@ export default function EmailGate({ onGatePass }: EmailGateProps) {
 
       <style>{`
         input::placeholder { color: #2A3F52; }
+        @media (max-width: 480px) {
+          .gate-card { padding: 0 4px !important; }
+          .gate-card h1 { font-size: 18px !important; }
+          .gate-card input, .gate-card button { font-size: 14px !important; }
+        }
       `}</style>
     </div>
   )

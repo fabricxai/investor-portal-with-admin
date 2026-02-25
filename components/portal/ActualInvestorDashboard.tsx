@@ -142,14 +142,14 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
   return (
     <div style={s.app}>
       {/* Header */}
-      <header style={s.header}>
+      <header className="aid-header" style={s.header}>
         <a href="https://fabricxai.com" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center' }}>
           <img src="https://devppcpvuwneduuibygh.supabase.co/storage/v1/object/public/investor-portal/logo/fabricxai-logo-dark.png" alt="fabricXai" style={{ height: 24 }} />
         </a>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={s.badge}>INVESTOR DASHBOARD</div>
+        <div className="aid-header-right" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div className="aid-badge-text" style={s.badge}>INVESTOR DASHBOARD</div>
           <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', boxShadow: '0 0 8px #10B981' }} />
-          <span style={{ fontSize: 11, fontFamily: "'Trebuchet MS', sans-serif", color: '#6A8899' }}>
+          <span className="aid-investor-name" style={{ fontSize: 11, fontFamily: "'Trebuchet MS', sans-serif", color: '#6A8899' }}>
             {investor.name}
           </span>
           <div style={{ ...s.badge, borderColor: '#10B981', color: '#10B981' }}>INVESTED</div>
@@ -158,26 +158,26 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
       </header>
 
       {/* Stats strip */}
-      <div style={s.statsStrip}>
-        <div style={s.statItem}>
+      <div className="aid-stats-strip" style={s.statsStrip}>
+        <div className="aid-stat-item" style={s.statItem}>
           <div style={{ ...s.statVal, color: '#10B981' }}>
             {investor.invested_amount ? `$${(investor.invested_amount / 1000).toFixed(0)}K` : '—'}
           </div>
           <div style={s.statLbl}>Invested</div>
         </div>
-        <div style={s.statItem}>
+        <div className="aid-stat-item" style={s.statItem}>
           <div style={{ ...s.statVal, color: '#57ACAF' }}>{investor.instrument || 'SAFE'}</div>
           <div style={s.statLbl}>Instrument</div>
         </div>
-        <div style={s.statItem}>
+        <div className="aid-stat-item" style={s.statItem}>
           <div style={{ ...s.statVal, color: '#EAB308' }}>$3M</div>
           <div style={s.statLbl}>Valuation Cap</div>
         </div>
-        <div style={s.statItem}>
+        <div className="aid-stat-item" style={s.statItem}>
           <div style={{ ...s.statVal, color: '#FFFFFF' }}>20%</div>
           <div style={s.statLbl}>Discount</div>
         </div>
-        <div style={s.statItem}>
+        <div className="aid-stat-item" style={s.statItem}>
           <div style={{ ...s.statVal, color: '#10B981' }}>
             {investor.invested_date
               ? new Date(investor.invested_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
@@ -185,7 +185,7 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
           </div>
           <div style={s.statLbl}>Invested Date</div>
         </div>
-        <div style={{ ...s.statItem, marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+        <div className="aid-stat-item" style={{ ...s.statItem, marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
           <div style={{ fontSize: 11, fontFamily: "'Trebuchet MS', sans-serif", color: '#10B981', fontWeight: 700 }}>
             Active Investor ✓
           </div>
@@ -193,21 +193,25 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
       </div>
 
       {/* Main */}
-      <div style={s.main}>
+      <div className="aid-main" style={s.main}>
         {/* Sidebar */}
-        <div style={s.sidebar}>
-          <div style={s.sideLabel}>Navigation</div>
-          {navItems.map(nav => (
-            <div
-              key={nav.id}
-              style={navStyle(activeTab === nav.id)}
-              onClick={() => setActiveTab(nav.id)}
-            >
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: nav.dot, flexShrink: 0 }} />
-              {nav.label}
-            </div>
-          ))}
+        <div className="aid-sidebar" style={s.sidebar}>
+          <div className="aid-sidebar-nav">
+            <div className="aid-sidebar-nav-label" style={s.sideLabel}>Navigation</div>
+            {navItems.map(nav => (
+              <div
+                key={nav.id}
+                className="aid-sidebar-nav-item"
+                style={navStyle(activeTab === nav.id)}
+                onClick={() => setActiveTab(nav.id)}
+              >
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: nav.dot, flexShrink: 0 }} />
+                <span style={{ whiteSpace: 'nowrap' }}>{nav.label}</span>
+              </div>
+            ))}
+          </div>
 
+          <div className="aid-sidebar-details">
           <div style={{ ...s.sideLabel, marginTop: 28 }}>Your Investment</div>
           {[
             ['Amount', investor.invested_amount ? `$${investor.invested_amount.toLocaleString()}` : '—'],
@@ -221,11 +225,12 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
               <span style={{ color: '#A8BFC8', fontWeight: 600 }}>{v}</span>
             </div>
           ))}
+          </div>
         </div>
 
         {/* Content */}
         {activeTab === 'overview' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="aid-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={s.sectionLabel}>Dashboard</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Welcome, {investor.name.split(' ')[0]}</div>
@@ -237,7 +242,7 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
             </div>
 
             {/* Live KPI cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, marginBottom: 16 }}>
+            <div className="aid-grid-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, marginBottom: 16 }}>
               {[
                 { label: 'MRR', value: metrics ? `$${(metrics.mrr || 0).toLocaleString()}` : '—', color: '#10B981' },
                 { label: 'Factories Live', value: metrics ? String(metrics.factories_live || 0) : '—', color: '#57ACAF' },
@@ -264,7 +269,7 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
               ))}
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
+            <div className="aid-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
               {/* Company progress */}
               <div style={s.card}>
                 <div style={{ color: '#A8BFC8', fontWeight: 700, marginBottom: 12, fontSize: 14 }}>
@@ -394,7 +399,7 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
         )}
 
         {activeTab === 'ask' && (
-          <div style={{ flex: 1, paddingTop: 28, display: 'flex', flexDirection: 'column', maxHeight: 'calc(100vh - 200px)' }}>
+          <div className="aid-content" style={{ flex: 1, paddingTop: 28, display: 'flex', flexDirection: 'column' as const, maxHeight: 'calc(100vh - 200px)' }}>
             <div style={{ marginBottom: 16 }}>
               <div style={s.sectionLabel}>Intelligence</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Ask fabricXai</div>
@@ -575,7 +580,7 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
         )}
 
         {activeTab === 'updates' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="aid-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={s.sectionLabel}>Communications</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Investor Updates</div>
@@ -631,7 +636,7 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
         )}
 
         {activeTab === 'docs' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="aid-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={s.sectionLabel}>Data Room</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Investor Documents</div>
@@ -715,7 +720,7 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
         )}
 
         {activeTab === 'cap' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="aid-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={s.sectionLabel}>Ownership</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Cap Table Summary</div>
@@ -753,12 +758,12 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
         )}
 
         {activeTab === 'contact' && (
-          <div style={{ flex: 1, paddingTop: 28 }}>
+          <div className="aid-content" style={{ flex: 1, paddingTop: 28 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={s.sectionLabel}>Support</div>
               <div style={{ fontSize: 18, fontWeight: 700 }}>Get in Touch</div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="aid-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               {[
                 { name: 'Arifur Rahman', role: 'CEO', email: 'arifur@fabricxai.com', color: '#EAB308', initials: 'AR', linkedin: 'https://www.linkedin.com/in/arifur-rahman-fabricxai/', whatsapp: '+8801689989007' },
                 { name: 'Kamrul Hasan', role: 'CTO', email: 'kamrul@fabricxai.com', color: '#57ACAF', initials: 'KH', linkedin: 'https://www.linkedin.com/in/kamrul-hasan-fabricxai/', whatsapp: '+8801743036425' },
@@ -832,9 +837,86 @@ export default function ActualInvestorDashboard({ investor, onLogout }: ActualIn
       </div>
 
       {/* Footer */}
-      <div style={s.disclaimer}>
+      <div className="aid-footer" style={s.disclaimer}>
         Confidential — for fabricXai investors only. Not for distribution. fabricXai · SocioFi · Dhaka, Bangladesh
       </div>
+
+      <style>{`
+        /* ─── ActualInvestorDashboard Responsive ─── */
+
+        /* Mobile ≤768px */
+        @media (max-width: 768px) {
+          /* Header */
+          .aid-header { padding: 0 12px !important; height: auto !important; min-height: 52px !important; flex-wrap: wrap !important; gap: 8px !important; padding-top: 8px !important; padding-bottom: 8px !important; }
+          .aid-header-right { flex-wrap: wrap !important; gap: 6px !important; }
+          .aid-badge-text { display: none !important; }
+
+          /* Stats strip */
+          .aid-stats-strip { flex-wrap: wrap !important; }
+          .aid-stat-item { min-width: 0 !important; flex: 1 1 calc(33.33% - 1px) !important; padding: 10px 12px !important; border-bottom: 1px solid #1C3042 !important; }
+          .aid-stat-item:last-child { border-right: none !important; }
+
+          /* Main layout → vertical stack */
+          .aid-main { flex-direction: column !important; padding: 0 !important; gap: 0 !important; }
+
+          /* Sidebar → horizontal nav strip */
+          .aid-sidebar {
+            width: 100% !important;
+            padding: 0 !important;
+            border-bottom: 1px solid #1C3042;
+            position: sticky !important;
+            top: 52px !important;
+            z-index: 90 !important;
+            background: #07111E !important;
+          }
+          .aid-sidebar-nav {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            gap: 4px !important;
+            padding: 8px 12px !important;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .aid-sidebar-nav::-webkit-scrollbar { display: none; }
+          .aid-sidebar-nav-label { display: none !important; }
+          .aid-sidebar-nav-item {
+            flex-shrink: 0 !important;
+            padding: 6px 12px !important;
+            margin-bottom: 0 !important;
+            border-radius: 20px !important;
+            font-size: 12px !important;
+            gap: 6px !important;
+          }
+          .aid-sidebar-details { display: none !important; }
+
+          /* Content */
+          .aid-content { padding: 16px 12px 24px !important; }
+
+          /* Grids collapse */
+          .aid-grid-2 { grid-template-columns: 1fr !important; }
+          .aid-grid-4 { grid-template-columns: 1fr 1fr !important; }
+
+          /* Footer */
+          .aid-footer { padding: 12px !important; }
+        }
+
+        /* Small phones ≤480px */
+        @media (max-width: 480px) {
+          .aid-stat-item { flex: 1 1 50% !important; }
+          .aid-grid-4 { grid-template-columns: 1fr !important; }
+          .aid-investor-name { display: none !important; }
+          .aid-sidebar-nav-item { font-size: 11px !important; padding: 5px 10px !important; }
+        }
+
+        /* Tablet 769–1024px */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .aid-sidebar { width: 200px !important; }
+          .aid-main { padding: 0 16px !important; }
+          .aid-stat-item { padding: 12px 16px !important; min-width: 100px !important; }
+        }
+      `}</style>
     </div>
   )
 }
